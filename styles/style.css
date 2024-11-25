@@ -1,0 +1,172 @@
+@import url(fonts.css);
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  overflow: hidden;
+}
+
+.noselect {
+  -webkit-touch-callout: none; /* iOS Safari */
+  -webkit-user-select: none; /* Safari */
+  -khtml-user-select: none; /* Konqueror HTML */
+  -moz-user-select: none; /* Old versions of Firefox */
+  -ms-user-select: none; /* Internet Explorer/Edge */
+  user-select: none; /* Non-prefixed version, currently
+                                  supported by Chrome, Edge, Opera and Firefox */
+}
+
+.video-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -2; /* Changed to -2 so overlay can be -1 */
+}
+
+/* New overlay div */
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.2); /* Blue with 30% opacity */
+  z-index: -1;
+}
+video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+#navigation {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 110vh;
+  display: flex;
+  justify-content: center; /* Centers content vertically */
+  align-items: flex-start; /* Aligns content to the left */
+  flex-direction: column;
+  gap: 50px;
+  padding-left: 175px; /* Keep only the left padding */
+}
+
+#logo {
+  width: 800px;
+}
+
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+  gap: 18px;
+}
+
+li {
+  float: left;
+}
+
+li a {
+  text-decoration: none;
+  color: white;
+  font-size: 24px;
+  font-family: Bahnschrift;
+}
+
+li a:hover {
+  color: rgba(255, 255, 255, 0.7);
+}
+
+#options-modal {
+  display: none;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 30%;
+  height: 50%;
+  background-color: #7a7a7af3;
+  z-index: 1;
+  border-radius: 7px;
+  font-family: Bahnschrift;
+  padding: 10px;
+  flex-direction: column;
+  gap: 10px;
+}
+
+#options-modal-header {
+  display: flex;
+  justify-content: space-between;
+  flex-direction: row;
+  align-items: center;
+}
+
+#options-modal-header h2 {
+  top: 0px;
+  color: white;
+  font-size: 12px;
+}
+
+#options-modal-content {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  color: white;
+  font-size: 24px;
+  font-family: Bahnschrift;
+}
+
+.options-label {
+  color: white;
+  font-size: 16px;
+}
+
+.options-dropdown {
+  width: 100%;
+  height: 100%;
+  border: none;
+  background-color: #585858;
+  color: white;
+  font-size: 16px;
+  padding: 5px;
+  border-right: 1px solid rgba(255, 255, 255, 0.5);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.5);
+}
+
+#close-options {
+  cursor: pointer;
+  background-color: transparent;
+  border: none;
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 24px;
+  line-height: 0px;
+}
+
+#close-options:hover {
+  color: white;
+}
+
+footer {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  background-color: rgba(0, 0, 0, 0.3);
+}
+
+.disclaimer {
+  padding: 10px;
+  text-align: center;
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 14px;
+}
