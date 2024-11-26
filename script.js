@@ -84,11 +84,13 @@ class MenuManager {
       menu1: document.getElementById("menu-1"),
       menu2: document.getElementById("menu-2"),
     };
+    // Add credits manager to the constructor
+    this.creditsManager = new CreditsManager();
 
     this.menuTemplates = {
       main: {
         menu1: ["HALF-LIFE 2", "HL2: EPISODE ONE", "HL2: EPISODE TWO"],
-        menu2: ["EXTRAS", "OPTIONS", "QUIT"],
+        menu2: ["CREDITS", "OPTIONS", "QUIT"],
       },
       halfLife2: {
         menu1: ["NEW GAME", "LOAD GAME", "ACHIEVEMENTS"],
@@ -115,25 +117,31 @@ class MenuManager {
     this.menuContainer.menu2.innerHTML = this._createMenuHTML(menu2Items);
     this._initializeMenuItemEventListeners();
   }
-
   _initializeMenuItemEventListeners() {
-    document.removeEventListener("mouseenter", this._handleMouseEnter);
+    // Remove previous event listeners to prevent multiple bindings
+    document.removeEventListener("mouseover", this._handleMouseEnter);
     document.removeEventListener("click", this._handleClick);
 
+    // Use mouseover instead of mouseenter for broader compatibility
     this._handleMouseEnter = (event) => {
-      if (event.target.classList.contains("menu-item")) {
+      // Check if the target or its parent is a menu item
+      const menuItem = event.target.closest(".menu-item");
+      if (menuItem) {
         this.soundManager.play("hover");
       }
     };
 
     this._handleClick = (event) => {
-      if (event.target.classList.contains("menu-item")) {
+      // Use event delegation and check for menu items
+      const menuItem = event.target.closest(".menu-item");
+      if (menuItem) {
         this.soundManager.play("click");
-        this._handleMenuItemClick(event.target.textContent);
+        this._handleMenuItemClick(menuItem.textContent);
       }
     };
 
-    document.addEventListener("mouseenter", this._handleMouseEnter);
+    // Add event listeners
+    document.addEventListener("mouseover", this._handleMouseEnter);
     document.addEventListener("click", this._handleClick);
   }
 
@@ -153,6 +161,9 @@ class MenuManager {
           this.menuTemplates.main.menu1,
           this.menuTemplates.main.menu2
         );
+        break;
+      case "CREDITS":
+        this.creditsManager.open();
         break;
       case "OPTIONS":
         this.modalManager.open();
@@ -246,7 +257,9 @@ class ModalManager {
   _initializeGlobalEventListeners() {
     // Use addEventListener with a single listener that persists
     const optionsButton = document.getElementById("options");
-    const closeOptionsButton = document.getElementById("close-options");
+    const closeOptionsButton = document.querySelector(
+      "#options-modal .close-modal"
+    );
     const backgroundSelect = document.getElementById("background-select");
 
     // Remove any existing listeners first to prevent duplicates
@@ -296,12 +309,46 @@ class ModalManager {
   }
 }
 
+// Credits Management Module
+class CreditsManager {
+  constructor() {
+    this.creditsModal = document.getElementById("credits-modal");
+    this._initializeGlobalEventListeners();
+  }
+
+  _initializeGlobalEventListeners() {
+    // Remove any existing listeners first to prevent duplicates
+    const closeCreditsButton = document.querySelector(
+      "#credits-modal .close-modal"
+    );
+
+    // Remove existing listeners
+    closeCreditsButton.removeEventListener("click", this.close);
+
+    // Bind methods to ensure correct 'this' context
+    this.open = this.open.bind(this);
+    this.close = this.close.bind(this);
+
+    // Add new listener for close button
+    closeCreditsButton.addEventListener("click", this.close);
+  }
+
+  open() {
+    this.creditsModal.style.display = "flex";
+  }
+
+  close() {
+    this.creditsModal.style.display = "none";
+  }
+}
+
 // Application Initialization
 document.addEventListener("DOMContentLoaded", () => {
   const video = document.querySelector(".video-container video");
   window.videoLoopManager = new VideoLoopManager(video);
   window.soundManager = new SoundManager();
   window.modalManager = new ModalManager();
+  window.creditsManager = new CreditsManager();
   window.menuManager = new MenuManager(
     window.soundManager,
     window.modalManager

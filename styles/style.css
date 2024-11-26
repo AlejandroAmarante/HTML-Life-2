@@ -104,36 +104,52 @@ li a:hover {
   gap: 10px;
 }
 
-#options-modal-header {
+#credits-modal {
+  display: none;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 30%;
+  height: 50%;
+  background-color: #7a7a7af3;
+  z-index: 1;
+  border-radius: 7px;
+  font-family: Bahnschrift;
+  padding: 10px;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.modal-header {
   display: flex;
   justify-content: space-between;
   flex-direction: row;
   align-items: center;
 }
 
-#options-modal-header h2 {
+.modal-header h2 {
   top: 0px;
   color: white;
   font-size: 12px;
 }
 
-#options-modal-content {
+.modal-content {
   display: flex;
   flex-direction: column;
-  gap: 5px;
+  gap: 15px;
   color: white;
   font-size: 24px;
   font-family: Bahnschrift;
 }
 
-.options-label {
+.modal-label {
   color: white;
   font-size: 16px;
 }
 
-.options-dropdown {
+.modal-dropdown {
   width: 100%;
-  height: 100%;
   border: none;
   background-color: #585858;
   color: white;
@@ -143,7 +159,19 @@ li a:hover {
   border-bottom: 1px solid rgba(255, 255, 255, 0.5);
 }
 
-#close-options {
+.modal-credit {
+  font-size: 16px;
+}
+
+.modal-link {
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.modal-link:hover {
+  color: white;
+}
+
+.close-modal {
   cursor: pointer;
   background-color: transparent;
   border: none;
@@ -152,7 +180,7 @@ li a:hover {
   line-height: 0px;
 }
 
-#close-options:hover {
+.close-modal:hover {
   color: white;
 }
 
