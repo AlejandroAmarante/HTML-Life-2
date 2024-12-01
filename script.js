@@ -298,7 +298,7 @@ class ModalManager {
       option4: [181, 240],
       option5: [241, 300],
       option6: [301, 360],
-      option7: [361, 420],
+      option7: [361, 419],
     };
 
     const points = loopPoints[value] || [
